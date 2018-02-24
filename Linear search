@@ -1,30 +1,28 @@
-#include <stdio.h>
-struct search{
-    int s;
-    int a[];
-};
-void linear(struct search l)
+int linear(int a[],int n,int s)
 {
-    for(int i=0;i<10;i++)
+    int t=0;
+    for(int i=0;i<n;i++)
     {
-        if(l.a[i]==l.s)
+        if(a[i]==s)
         {
-            printf("the position of the element is %d.",i);
+            t++;
         }
     }
+    return t;
 }
 
 void main()
-{ int s;
-
-int a[10];
-printf("Enter 10 values");
-for(int i=0;i<10;i++)
 {
-    scanf("%d",&a[i]);
-}
-printf("Enter value to be searched:");
-scanf("%d",&s);
-struct search ls={s,a[]};
-linear(ls);
+    int a[100],n,s;
+    printf("Enter number of elements:");
+    scanf("%d",&n);
+    printf("Enter elements of array:");
+    for(int i=0;i<n;i++)
+    {
+        scanf("%d",&a[i]);
+    }
+    printf("Ente number to be searched:");
+    scanf("%d",&s);
+    int t=linear(a,n,s);
+    printf("Occurence:%d",t);
 }
