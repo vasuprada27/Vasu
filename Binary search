@@ -1,0 +1,57 @@
+#include<stdio.h>
+
+struct binary
+{
+    int a[100];
+    int n;
+    int s;
+    int p;
+}b;
+void input()
+{
+    printf("Enter limit:");
+    scanf("%d",&b.n);
+    printf("Enter elements of array:");
+    for(int i=0;i<b.n;i++)
+    {
+        scanf("%d",&b.a[i]);
+    }
+    printf("Enter search element:");
+    scanf("%d",&b.s);
+}
+
+void search()
+{
+    int mid,lb=0,ub=(b.n-1);b.p=-1;
+    while(lb<ub&&b.p==-1)
+    {
+        mid=(lb+ub)/2;
+        if(b.a[mid]==b.s)
+        {
+        b.p=mid;
+        }
+        else if(b.a[mid]>b.s)
+        {
+        ub=mid-1;
+        }
+        else
+        {
+        lb=mid+1;
+        }
+    }
+}
+
+void output()
+{
+    if(b.p==-1)
+    printf("Given element is not found in the array.");
+    else
+    printf("%d is found in the position:%d",b.s,b.p);
+}
+
+void main()
+{
+    input();
+    search();
+    output();
+}
