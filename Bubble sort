@@ -1,0 +1,51 @@
+#include<stdio.h>
+struct sort
+{
+    int a[100];
+    int n;
+}s;
+
+int bubble()
+{
+    
+    for(int i=0;i<s.n;i++)
+    {
+        for(int j=0;j<(s.n-1);j++)
+        {
+            if(s.a[j]>s.a[j+1])
+            {
+            int t=s.a[j];
+            s.a[j]=s.a[j+1];
+            s.a[j+1]=t;
+            }
+        }
+    }
+}
+
+void input()
+{
+    printf("Enter limit:");
+    scanf("%d",&s.n);
+    printf("Enter elements of array:\n");
+    for(int i=0;i<s.n;i++)
+    {
+        scanf("%d",&s.a[i]);
+    }
+}
+
+void output()
+{
+    printf("Sorted array:\n");
+    for(int i=0;i<s.n;i++)
+    {
+        printf("%d ",s.a[i]);
+    }
+}
+
+void main()
+{
+    input();
+    bubble();
+    output();
+}
+
