@@ -1,36 +1,35 @@
 #include<stdio.h>
 
-struct binary
+/*struct binary
 {
     int a[100];
     int n;
     int s;
     int p;
-}b;
-void input()
+}b;*/
+void input(int a[100],int n)
 {
-    printf("Enter limit:");
-    scanf("%d",&b.n);
+    
     printf("Enter elements of array:");
-    for(int i=0;i<b.n;i++)
+    for(int i=0;i<n;i++)
     {
-        scanf("%d",&b.a[i]);
+        scanf("%d",&a[i]);
     }
-    printf("Enter search element:");
-    scanf("%d",&b.s);
+    
 }
 
-void search()
+int search(int a[100],int n,int s)
 {
-    int mid,lb=0,ub=(b.n-1);b.p=-1;
-    while(lb<ub&&b.p==-1)
+    int mid,lb=0,ub=(n-1);
+    int p=-1;
+    while(lb<ub&&p==-1)
     {
         mid=(lb+ub)/2;
-        if(b.a[mid]==b.s)
+        if(a[mid]==s)
         {
-        b.p=mid;
+        p=mid;
         }
-        else if(b.a[mid]>b.s)
+        else if(a[mid]>s)
         {
         ub=mid-1;
         }
@@ -39,19 +38,26 @@ void search()
         lb=mid+1;
         }
     }
+    return p;
 }
 
-void output()
+void output(int p,int s)
 {
-    if(b.p==-1)
+    if(p==-1)
     printf("Given element is not found in the array.");
     else
-    printf("%d is found in the position:%d",b.s,b.p);
+    printf("%d is found in the position:%d",s,p);
 }
 
 void main()
 {
-    input();
-    search();
-    output();
+    int a[100];
+    int n,s,p;
+    printf("Enter limit:");
+    scanf("%d",&n);
+    input(a,n);
+    printf("Enter search element:");
+    scanf("%d",&s);
+    p=search(a,n,s);
+    output(p,s);
 }
