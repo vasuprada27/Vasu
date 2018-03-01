@@ -1,0 +1,54 @@
+/******************************************************************************
+
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <stdio.h>
+struct student
+{
+    int roll,marks;
+    char name[20],dep[5],grade[4];
+    
+};
+
+int input(struct student s[150],int *n)
+{
+    for(int i=0;i<*n;i++)
+    {
+        printf("Enter Roll number of student %d:",i+1);
+        scanf("%d",&s[i].roll);
+        printf("Enter Name of student %d:",i+1);
+        scanf("%s",&s[i].name);
+        printf("Enter Department of student %d:",i+1);
+        scanf("%s",&s[i].dep);
+        printf("Enter marks of student %d:",i+1);
+        scanf("%d",&s[i].marks);
+        printf("Enter Grade of student %d:",i+1);
+        scanf("%s",&s[i].grade);
+    }
+}
+
+void print(struct student s[150],int *n)
+{
+    printf("Roll no.\tNmae\tDepartment\tMarks\tGrade\n");
+    for(int i=0;i<*n;i++)
+    {
+        printf("%d\t\t%s\t\t%s\t%d\t%s\n",s[i].roll,s[i].name,s[i].dep,s[i].marks,s[i].grade);
+    }
+}
+
+void main()
+{
+    int n;
+    printf("Enter number of students:");
+    scanf("%d",&n);
+    struct student s[n];
+    input(s,&n);
+    print(s,&n);
+}
+
+
+
