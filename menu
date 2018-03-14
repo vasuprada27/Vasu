@@ -1,0 +1,95 @@
+#include <stdio.h>
+
+int lcm()
+{
+    int n1,n2;
+    printf("Enter 2 numbers:");
+    scanf("%d%d",&n1,&n2);
+    int g;
+    for(int i=1; i <= n1;i++)
+    {
+        for(int j=1;j<=n2;j++)
+        {
+            if((n1*i)==(n2*j))
+            {
+                g = n1*i;
+                break;
+            }
+        } 
+    }
+    printf("LCM=%d",g);
+    return 0;
+}
+
+void permutation()
+{
+    int r,n;
+    printf("Enter n and r values:");
+    scanf("%d%d",&n,&r);
+    float nf=1,nr=1;
+    for(int i=1;i<=n;i++)
+    {
+        nf=nf*i;
+    }
+    for(int i=1;i<=(n-r);i++)
+    {
+        nr=nr*i;
+    }
+    float p=nf/nr;
+    printf("Permutation:%f",p);
+}
+
+void combination()
+{
+    int r,n;
+    printf("Entr n and r values:");
+    scanf("%d%d",&n,&r);
+    float nf=1,nr=1,rf=1;
+    for(int i=1;i<=n;i++)
+    {
+        nf=nf*i;
+    }
+    for(int i=1;i<=r;i++)
+    {
+        rf=rf*i;
+    }
+    for(int i=1;i<=(n-r);i++)
+    {
+        nr=nr*i;
+    }
+    float c=nf/(nr*rf);
+    printf("Combination:%f",c);
+}
+
+int main()
+{
+    int n;
+    char ch;
+    do
+    {
+    printf("Enter choice:1.LCM\n2.Permutation\n3.Combination\n4.Exit");
+    scanf("%d",&n);
+    switch(n)
+    {
+        case 1:
+            lcm();
+            break;
+        case 2:
+            permutation();
+            break;
+        case 3:
+            combination();
+            break;
+        case 4:
+            exit(0);
+            break;
+        default:
+            printf("Invald number.");
+    }
+    
+    printf("Do you want to continue?Y/N:");
+    scanf("%c",&ch);
+    }while(ch=='Y'||ch=='y');
+    
+    return 0;
+}
