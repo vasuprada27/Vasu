@@ -1,54 +1,57 @@
 #include<stdio.h>
-struct search
-{
-    int p[100];
-    int t;
-    int a[100];
-    int n;
-    int s;
-}l;
 
-int linear()
+/*struct search
+
 {
-    int d=0;
-    for(int i=0;i<l.n;i++)
+
+    int p[100];
+
+    int t;
+
+    int a[100];
+
+    int n;
+
+    int s;
+
+}l;*/
+
+int linear(int n,int a[],int s,int t)
+{
+    for(int i=0;i<n;i++)
     {
-        if(l.a[i]==l.s)
+        if(a[i]==s)
         {
-            l.p[d]=i;
-            d++;
-            l.t=l.t+1;
+            t=i+1;
+            break;
         }
+    }
+    return t;
+}
+
+void input(int n,int a[])
+{
+    printf("Enter elements of array:");
+    for(int i=0;i<n;i++)
+    {
+        scanf("%d",&a[i]);
     }
 }
 
-void input()
-    {
-    printf("Enter number of elements:");
-    scanf("%d",&l.n);
-    printf("Enter elements of array:");
-    for(int i=0;i<l.n;i++)
-    {
-        scanf("%d",&l.a[i]);
-    }
-    printf("Ente number to be searched:");
-    scanf("%d",&l.s);
-    }
-    
-void output()
+void output(int t)
 {
-    printf("occurence=%d\n",l.t);
-    printf("Position :");
-    for(int i=0;i<l.t;i++)
-    {
-        printf("%d,",l.p[i]);
-    }
+    printf("Position=%d\n",t);
 }
 
 void main()
 {
-    l.t=0;
-    input();
-    linear();
-    output();
+    int n,t,s;
+    printf("Enter number of elements:");
+    scanf("%d",&n);
+    int a[n];
+    input(n,a);
+    printf("Enter number to be searched:");
+    scanf("%d",&s);
+    int b=linear(n,a,s,t);
+    output(b);
 }
