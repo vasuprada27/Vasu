@@ -1,0 +1,78 @@
+
+#include <stdio.h>
+
+struct managersalary
+{
+    float basic;
+    float incentive;
+};
+
+struct laboursalary
+{
+    float basic;
+    float wages;
+};
+
+struct employee
+{
+    char name[50];
+    int type;
+    union salary{
+        struct managersalary msal;
+        struct laboursalary lsal;
+    }sal;
+};
+
+int input(struct employee e)
+{
+    printf("Enter name:");
+    scanf("%s",&e.name);
+    printf("Enter type:(1-Employee,2-Labour):");
+    scanf("%d",&e.type);
+    if(e.type==1)
+    {
+        printf("Enter employee basic salary:");
+        scanf("%f",&e.sal.msal.basic);
+        printf("Enter employee incentive:");
+        scanf("%f",&e.sal.msal.incentive);
+    }
+    else
+    {
+        printf("Enter Labourer basic salary:");
+        scanf("%f",&e.sal.lsal.basic);
+        printf("Enter labourer wage:");
+        scanf("%f",&e.sal.lsal.wages);
+    }
+}
+
+int print(struct employee e)
+{
+     printf("%s\t%d\t",e.name,e.type);
+    if(e.type==1)
+    {
+        printf("%f\t%f\t\n",e.sal.msal.basic,e.sal.msal.incentive);
+    }
+    else
+    {
+        printf("%f\t%f\t\n",e.sal.lsal.basic,e.sal.lsal.wages);
+    }   
+}
+
+int main()
+{
+    int n;
+    struct employee e[n];
+    
+    printf("Enter number of workers(employees+Labour):");
+    scanf("%d",&n);
+    for(int i=0;i<n;i++)
+    {
+        input(e[i]);
+    }
+    
+    for(int i=0;i<n;i++)
+    {
+        print(e[i]);
+    }
+    return 0;
+}
