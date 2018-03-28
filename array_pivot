@@ -1,27 +1,33 @@
 #include<stdio.h>
+
+
+/* So if the element is less than pivot element it is pushed to the zeroeth position.
+   Pivot element is stored in a temporary variable. 
+   
+   
+   If it is less it is pushed the left side of greater elements.
+   So if it greater i leave it.
+   Pivot element is obtained in required position;*/
+   
 int compute(int n,int a[n],int b[n])
 {
     int p=a[0];
-    int t=0;
+    int c=0,t=1;
     for(int i=1;i<n;i++)
     {
-        if(a[i]>p)
+        if(a[i]>=p)
         {
-            b[t]=a[i];
+            for(int j=t;j<i;j++)
+            {
+                a[j+1]=a[j];
+            }
+            a[t]=a[i];
             t++;
         }
     }
+    a[0]=a[t-1];
+    a[t-1]=p;
     
-    b[t]=p;
-    t++;
-    for(int i=1;i<n;i++)
-    {
-        if(a[i]<=p)
-        {
-            b[t]=a[i];
-            t++;
-        }
-    }
 }
 int main()
 {
@@ -38,7 +44,7 @@ int main()
     printf("Result:");
     for(int i=0;i<n;i++)
     {
-        printf("%d\t",b[i]);
+        printf("%d\t",a[i]);
     }
     return 0;
 }
