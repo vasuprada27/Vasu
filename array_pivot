@@ -1,0 +1,44 @@
+#include<stdio.h>
+int compute(int n,int a[n],int b[n])
+{
+    int p=a[0];
+    int t=0;
+    for(int i=1;i<n;i++)
+    {
+        if(a[i]>p)
+        {
+            b[t]=a[i];
+            t++;
+        }
+    }
+    
+    b[t]=p;
+    t++;
+    for(int i=1;i<n;i++)
+    {
+        if(a[i]<=p)
+        {
+            b[t]=a[i];
+            t++;
+        }
+    }
+}
+int main()
+{
+    int n;
+    printf("Enter array size:");
+    scanf("%d",&n);
+    int a[n],b[n];
+    printf("Enter array elements:");
+    for(int i=0;i<n;i++)
+    {
+        scanf("%d",&a[i]);
+    }
+    compute(n,a,b);
+    printf("Result:");
+    for(int i=0;i<n;i++)
+    {
+        printf("%d\t",b[i]);
+    }
+    return 0;
+}
