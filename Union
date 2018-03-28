@@ -1,38 +1,76 @@
-#include<stdio.h>
-#include<conio.h>
-union emp
+#include <stdio.h>
+
+struct managersalary
 {
-    int num,age,sal;
-    char name[20],dep[10];
+    float basic;
+    float incentive;
 };
 
-int input(union emp e[150],int *n)
+struct laboursalary
 {
-    for(int i=0;i<*n;i++)
+    float basic;
+    float wages;
+};
+
+struct employee
+{
+    char name[50];
+    int type;
+    union salary{
+        struct managersalary msal;
+        struct laboursalary lsal;
+    }sal;
+};
+
+int input(struct employee *e)
+{
+    printf("Enter name:");
+    scanf("%s",&e->name);
+    printf("Enter type:(1-Employee,2-Labour):");
+    scanf("%d",&e->type);
+    if(e->type==1)
     {
-        printf("Enter Employee number,Name,Department,age,salary of %d:",i+1);
-        scanf("%d%s%s%d%d",&e[i].num,e[i].name,e[i].dep,&e[i].age,&e[i].sal);
-        printf("Enter Name of Employee %d:",i+1);
-        scanf("%s",e[i].name);
-        printf("Enter Department %d:",i+1);
-        scanf("%s",e[i].dep);
-        printf("Enter age of employee %d:",i+1);
-        scanf("%d",&e[i].age);
-        printf("Enter salary of Employee %d:",i+1);
-        scanf("%d",&e[i].sal);
+        printf("Enter employee basic salary:");
+        scanf("%f",&e->sal.msal.basic);
+        printf("Enter employee incentive:");
+        scanf("%f",&e->sal.msal.incentive);
+    }
+    else
+    {
+        printf("Enter Labourer basic salary:");
+        scanf("%f",&e->sal.lsal.basic);
+        printf("Enter labourer wage:");
+        scanf("%f",&e->sal.lsal.wages);
     }
 }
 
-void main()
+int print(struct employee e)
 {
-    int i, n ;
-    printf("Enter the number of employees : ") ;
-    scanf("%d", &n) ;
-    union emp e[n];
-    input(e,&n);
-    printf("\nEmp. No. Name \t Age \t Department  Slary \n") ;
-    for(int i=0;i<n ; i++)
+     printf("%s\t%d\t",e.name,e.type);
+    if(e.type==1)
     {
-        printf("%d \t %s \t %d \t %s \t %d \n", e[i].num,e[i].name, e[i].age, e[i].dep, e[i].sal);
+        printf("%f\t%f\t\n",e.sal.msal.basic,e.sal.msal.incentive);
     }
+    else
+    {
+        printf("%f\t%f\t\n",e.sal.lsal.basic,e.sal.lsal.wages);
+    }   
+}
+
+int main()
+{
+    int n;
+    printf("Enter number of workers(employees+Labour):");
+    scanf("%d",&n);
+    struct employee e[n];
+    for(int i=0;i<n;i++)
+    {
+        input(&e[i]);
+    }
+    printf("Name\tType\tbasic salary\tincentive/wage\n");
+    for(int i=0;i<n;i++)
+    {
+        print(e[i]);
+    }
+    return 0;
 }
