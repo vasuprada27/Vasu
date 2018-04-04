@@ -1,57 +1,77 @@
 #include<stdio.h>
 
-
 /* So if the element is less than pivot element it is pushed to the zeroeth position.
    Pivot element is stored in a temporary variable.
-  
-  
+ 
+ 
    If it is less it is pushed the left side of greater elements.
    So if it greater i leave it.
    Pivot element is obtained in required position;*/
-  
+ 
 int compute(int n,int a[n],int b[n])
 {
-    int p=a[0];
-    int t=1,m=n;
-    for(int i=1;i<m;i++)
+	int p=a[0];
+	int t=1,j,k=n-1,c,l=k;
+	
+	/* why is the loop going from 1 to n */
+	/* Because the array count should start from first postion to last position. */
+	/* Why? */
+	/* Since i Need to process all the elements */
+	/* but you are also examining from the right */
+	/* So i can only be less than j */
+	
+    for(int i=1;i<k;i++)
     {
-         if(a[i]<=p)
+/* suppose you start with j = 1 and you went 10 element first time to find the first greater than element.
+/*  Why is i coming into picture here ? */
+
+
+        for(j=t;j<k;j++)
         {
-            int c=a[i-1];
-            a[i-1]=a[i];
-            a[i]=c;
-        }
-        else if(a[i]>p)
-        {
-            int c=a[m-1];
-            a[m-1]=a[i];
-            a[i]=c;
-            
-            i=i-1;
-            m=m-1;
+            if(a[j]>p)
+     	    {
+     	        for(k=l;k>j;k--)
+     	        {
+                    if(a[k]<p)
+     	            {
+     	                t=a[k];
+     	                a[k]=a[j];
+     	                a[j]=t;
+     	                c=k-1;
+     	                l=k;
+     	                break;
+     	            }
+     	        }
+     	        t=j;
+     	        break;
+     	    }
         }
     }
+    a[0]=a[c];
+    a[c]=p;
     
+	
+	
 }
-
 int main()
 {
-    int n;
-    printf("Enter array size:");
-    scanf("%d",&n);
-    int a[n],b[n];
-    printf("Enter array elements:");
-    for(int i=0;i<n;i++)
-    {
-            scanf("%d",&a[i]);
-    }
-    compute(n,a,b);
-    printf("Result:");
-    for(int i=0;i<n;i++)
-    {
-            printf("%d\t",a[i]);
-    }
-    return 0;
+	int n;
+	printf("Enter array size:");
+	scanf("%d",&n);
+	int a[n],b[n];
+	printf("Enter array elements:");
+	for(int i=0;i<n;i++)
+	{
+        	scanf("%d",&a[i]);
+	}
+	compute(n,a,b);
+	printf("Result:");
+	for(int i=0;i<n;i++)
+	{
+        	printf("%d\t",a[i]);
+	}
+	return 0;
 }
+
 
 
