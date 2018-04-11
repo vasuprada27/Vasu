@@ -1,0 +1,57 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+char **makearray(int n)
+{
+    return (char**) malloc((sizeof(char))*n);
+}
+
+void inputarray(int n,char **s)
+{
+   char t[100];
+   int l;
+   for(int i =0;i < n;i++) 
+   {
+	   printf("Enter next string\n");
+	   scanf("%s",t);
+	   l = strlen(t);
+	   s[i] = (char *)malloc(l + 1);
+	   strcpy(s[i],t);
+   }
+}
+
+void sort(int n,char **s)
+{
+     for(int i=0;i<n;i++)
+        {
+            for(int j=i+1;j<n;j++)
+            {
+                if(strcmp(s[i],s[j])>0) 
+                {
+                    char temp[i];
+                    strcpy(temp,s[i]);
+                    s[i]=(char**)malloc(j);
+                    strcpy(s[i],s[j]);
+                    s[j]=(char**)malloc(i);
+                    strcpy(s[j],temp);
+                }
+            }
+        }
+}
+
+int main()
+{
+  int n;
+  printf("Enter the number of strings\n");
+  scanf("%d",&n);
+  char **s=makearray(n);
+  inputarray(n,s);
+  sort(n,s);
+  for(int i=0;i<n;i++)
+  {
+    printf("%s\t",s[i]);
+  }
+  return 0;
+        
+  }
