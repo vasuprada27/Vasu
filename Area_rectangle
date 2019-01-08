@@ -1,0 +1,53 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+struct rectangle
+{
+    float a1,b1,a2,b2,a3,b3;
+
+}r;
+int input()
+{
+    int n;
+    printf("Enter number of rectangles:");
+    scanf("%d",&n);
+    return n;
+}
+void inp_coordinates(int n)
+{
+    printf("Enter coordinates of rectangle %d:",n+1);
+    scanf("%f%f%f%f%f%f",&r.a1,&r.b1,&r.a2,&r.b2,&r.a3,&r.b3);
+}
+
+float compute(int n)
+{
+    float area;
+    float d1=sqrt(pow((r.a2-r.a1),2)+pow((r.b2-r.b1),2));
+    float d2=sqrt(pow((r.a3-r.a2),2)+pow((r.b3-r.b2),2));
+    float d3=sqrt(pow((r.a3-r.a1),2)+pow((r.b3-r.b1),2));
+    if(d1>d2 && d1>d3)
+        area=d2*d3;
+    else if(d2>d1 && d2>d3)
+        area=d1*d3;
+    else if(d3>d2 && d3>d1)
+        area=d2*d1;
+    return area;
+}
+void output(float area)
+{
+    printf("Area of rectangle with vertices (%f,%f),(%f,%f),(%f,%f): %f \n",r.a1,r.b1,r.a2,r.b2,r.a3,r.b3,area);
+}
+int main()
+{
+    int n;
+    n=input();
+    float area[n];
+    for(int i=0;i<n;i++)
+    {
+        inp_coordinates(i);
+        area[i]=compute(i);
+        output(area[i]);
+    }
+
+    return 0;
+}
