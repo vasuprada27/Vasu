@@ -15,9 +15,9 @@ struct n_rect
     int n;
     struct rectangle r[100];
 };
-void input(struct n_rect rn)
+ struct n_rect input()
 {
-    //struct n_rect rn;
+    struct n_rect rn;
     printf("Enter number of rectangles:");
     scanf("%d",&rn.n);
 	int i;
@@ -27,48 +27,48 @@ void input(struct n_rect rn)
         printf("Enter coordinates of rectangle %d: ",i+1);
         for(int j=0;j<3;j++)
         {
-             scanf("%f%f",&rn.r[i].a[j].x,&rn.r[i].a[j].y);
+             scanf("%f%f",&(rn.r[i].a[j].x),&(rn.r[i].a[j].y));
         }
     }
+    return rn;
 }
 
-void compute(struct n_rect rn)
+void compute(struct n_rect *rn)
 {
     //struct n_rect rn;
-    for(int i=0;i<rn.n;i++)
+    for(int i=0;i<rn->n;i++)
     {
-        float d1=sqrt(pow((rn.r[i].a[2].x-rn.r[i].a[1].x),2)+pow((rn.r[i].a[2].y-rn.r[i].a[1].y),2));
-        float d2=sqrt(pow((rn.r[i].a[2].x-rn.r[i].a[0].x),2)+pow((rn.r[i].a[2].y-rn.r[i].a[0].y),2));
-        float d3=sqrt(pow((rn.r[i].a[1].x-rn.r[i].a[0].x),2)+pow((rn.r[i].a[1].y-rn.r[i].a[0].y),2));
+        float d1=sqrt(pow((rn->r[i].a[2].x-rn->r[i].a[1].x),2.0000)+pow((rn->r[i].a[2].y-rn->r[i].a[1].y),2.0000));
+        float d2=sqrt(pow((rn->r[i].a[2].x-rn->r[i].a[0].x),2.0000)+pow((rn->r[i].a[2].y-rn->r[i].a[0].y),2.0000));
+        float d3=sqrt(pow((rn->r[i].a[1].x-rn->r[i].a[0].x),2.0000)+pow((rn->r[i].a[1].y-rn->r[i].a[0].y),2.0000));
 
     if(d1>d2 && d1>d3)
-        rn.r[i].area=d2*d3;
+        rn->r[i].area=d2*d3;
     else if(d2>d1 && d2>d3)
-        rn.r[i].area=d1*d3;
+        rn->r[i].area=d1*d3;
     else if(d3>d2 && d3>d1)
-        rn.r[i].area=d2*d1;
+        rn->r[i].area=d2*d1;
     }
 }
-void output(struct n_rect rn)
+void output(struct n_rect *rn)
 {
 	int i;
 
-    for(i=0;i<rn.n;i++)
+    for(i=0;i<rn->n;i++)
     {
         printf("Area of rectangle with vertices:");
         for(int j=0;j<3;j++)
         {
-             printf("(%f,%f) ",rn.r[i].a[j].x,rn.r[i].a[j].y);
+             printf("(%f,%f) ",rn->r[i].a[j].x,rn->r[i].a[j].y);
         }
-        printf("is: %f \n",rn.r[i].area);
+        printf("is: %f \n",rn->r[i].area);
     }
 }
 int main()
 {
     struct n_rect rn;
-    input(rn);
-    compute(rn);
-    output(rn);
-
+    rn=input();
+    compute(&rn);
+    output(&rn);
     return 0;
 }
