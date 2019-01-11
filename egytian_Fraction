@@ -1,0 +1,96 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct fraction
+{
+     int num;
+     int den;
+};
+struct equation
+{
+    int terms;
+    int d[100];
+    struct fraction f;
+};
+struct n_fractions
+{
+    int n;
+    struct equation eq[100];
+};
+
+struct n_fractions input()
+{
+    struct n_fractions nf;
+    printf("Enter number of equations:");
+    scanf("%d",&nf.n);
+    for(int i=0;i<nf.n;i++)
+    {
+        printf("Enter number of terms for equation %d:",i+1);
+        scanf("%d",&nf.eq[i].terms);
+        printf("Enter terms:");
+        for(int j=0;j<nf.eq[i].terms;j++)
+        {
+            scanf("%d",&nf.eq[i].d[j]);
+        }
+    }
+    return nf;
+}
+
+void compute(struct n_fractions *nf)
+{
+
+    int p=1,s=0;
+    for(int i=0;i<nf->n;i++)
+    {
+        for(int j=0;j<nf->eq[i].terms;j++)
+        {
+            p=p*nf->eq[i].d[j];
+
+        }
+        nf->eq[i].f.den=p;
+        for(int k=0;k<nf->eq[i].terms;k++)
+        {
+            s=s+(p/nf->eq[i].d[k]);
+        }
+        nf->eq[i].f.num=s;
+    }
+
+    for(int i=0;i<nf->n;i++)
+    {
+        int a;
+        if(nf->eq[i].f.den > nf->eq[i].f.num)
+            a= nf->eq[i].f.den ;
+        else
+            a= nf->eq[i].f.num ;
+
+        while((nf->eq[i].f.den %a ==0) && (nf->eq[i].f.num %a ==0)  && (a>0) )
+        {
+            nf->eq[i].f.den =(nf->eq[i].f.den /a);
+            nf->eq[i].f.num =(nf->eq[i].f.num /a);
+            a--;
+        }
+    }
+}
+
+void output(struct n_fractions *nf)
+{
+
+    for(int i=0;i<nf->n;i++)
+    {
+        for(int j=0;j<nf->eq[i].terms;j++)
+        {
+            if(j==nf->eq[i].terms-1)
+                printf("1/%d =",nf->eq[i].d[j]);
+            else
+                printf("1/%d + ",nf->eq[i].d[j]);
+        }
+        printf("%d/%d\n",nf->eq[i].f.num, nf->eq[i].f.den);
+    }
+
+}
+void main()
+{
+    struct n_fractions nf;
+    nf=input();
+    compute(&nf);
+    output(&nf);
+}
