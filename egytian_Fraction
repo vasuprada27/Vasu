@@ -58,15 +58,15 @@ void compute(struct n_fractions *nf)
     {
         int a;
         if(nf->eq[i].f.den > nf->eq[i].f.num)
-            a= nf->eq[i].f.den ;
-        else
             a= nf->eq[i].f.num ;
+        else
+            a= nf->eq[i].f.den ;
 
         while((nf->eq[i].f.den %a ==0) && (nf->eq[i].f.num %a ==0)  && (a>0) )
         {
             nf->eq[i].f.den =(nf->eq[i].f.den /a);
             nf->eq[i].f.num =(nf->eq[i].f.num /a);
-            a--;
+            a=a-1;
         }
     }
 }
