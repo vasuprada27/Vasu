@@ -10,14 +10,15 @@ struct rectangle
     struct point a[3];
     float area;
 };
-struct n_rect
+struct n_rectangles
 {
     int n;
     struct rectangle r[100];
 };
- struct n_rect input()
+
+ struct n_rectangles input()
 {
-    struct n_rect rn;
+    struct n_rectangles rn;
     printf("Enter number of rectangles:");
     scanf("%d",&rn.n);
 	int i;
@@ -33,9 +34,8 @@ struct n_rect
     return rn;
 }
 
-void compute(struct n_rect *rn)
+void compute(struct n_rectangles *rn)
 {
-    //struct n_rect rn;
     for(int i=0;i<rn->n;i++)
     {
         float d1=sqrt(pow((rn->r[i].a[2].x-rn->r[i].a[1].x),2.0000)+pow((rn->r[i].a[2].y-rn->r[i].a[1].y),2.0000));
@@ -50,25 +50,25 @@ void compute(struct n_rect *rn)
         rn->r[i].area=d2*d1;
     }
 }
-void output(struct n_rect *rn)
+void output(struct n_rectangles rn)
 {
 	int i;
 
-    for(i=0;i<rn->n;i++)
+    for(i=0;i<rn.n;i++)
     {
         printf("Area of rectangle with vertices:");
         for(int j=0;j<3;j++)
         {
-             printf("(%f,%f) ",rn->r[i].a[j].x,rn->r[i].a[j].y);
+             printf("(%f,%f) ",rn.r[i].a[j].x,rn.r[i].a[j].y);
         }
-        printf("is: %f \n",rn->r[i].area);
+        printf("is: %f \n",rn.r[i].area);
     }
 }
 int main()
 {
-    struct n_rect rn;
+    struct n_rectangles rn;
     rn=input();
     compute(&rn);
-    output(&rn);
+    output(rn);
     return 0;
 }
