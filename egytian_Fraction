@@ -1,25 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
-struct fraction
+struct egyptian_fraction
 {
      int num;
      int den;
 };
-struct equation
+struct unit_fraction
 {
     int terms;
     int d[100];
-    struct fraction f;
+    struct egyptian_fraction f;
 };
-struct n_fractions
+struct instances
 {
     int n;
-    struct equation eq[100];
+    struct unit_fraction eq[100];
 };
 
-struct n_fractions input()
+struct instances input()
 {
-    struct n_fractions nf;
+    struct instances nf;
     printf("Enter number of equations:");
     scanf("%d",&nf.n);
     for(int i=0;i<nf.n;i++)
@@ -35,27 +35,34 @@ struct n_fractions input()
     return nf;
 }
 
-void compute(struct n_fractions *nf)
+void compute(struct instances *nf)
 {
 
-    int p=1,s=0;
+    
     for(int i=0;i<nf->n;i++)
     {
+        int p=1,s=0;
         for(int j=0;j<nf->eq[i].terms;j++)
         {
-            p=p*nf->eq[i].d[j];
+            p=p * nf->eq[i].d[j] ;
 
         }
         nf->eq[i].f.den=p;
+        
         for(int k=0;k<nf->eq[i].terms;k++)
         {
-            s=s+(p/nf->eq[i].d[k]);
+            s=s + (p / nf->eq[i].d[k] );
         }
         nf->eq[i].f.num=s;
+        printf("N=%d \n D=%d \n",nf->eq[i].f.num,nf->eq[i].f.den);
+        
     }
+    
 
     for(int i=0;i<nf->n;i++)
     {
+        if(nf->eq[i].terms == 1)
+            break;
         int a;
         if(nf->eq[i].f.den > nf->eq[i].f.num)
             a= nf->eq[i].f.num ;
@@ -71,26 +78,26 @@ void compute(struct n_fractions *nf)
     }
 }
 
-void output(struct n_fractions *nf)
+void output(struct instances nf)
 {
 
-    for(int i=0;i<nf->n;i++)
+    for(int i=0;i<nf.n;i++)
     {
-        for(int j=0;j<nf->eq[i].terms;j++)
+        for(int j=0;j<nf.eq[i].terms;j++)
         {
-            if(j==nf->eq[i].terms-1)
-                printf("1/%d =",nf->eq[i].d[j]);
+            if(j==nf.eq[i].terms-1)
+                printf("1/%d =",nf.eq[i].d[j]);
             else
-                printf("1/%d + ",nf->eq[i].d[j]);
+                printf("1/%d + ",nf.eq[i].d[j]);
         }
-        printf("%d/%d\n",nf->eq[i].f.num, nf->eq[i].f.den);
+        printf("%d/%d\n",nf.eq[i].f.num, nf.eq[i].f.den);
     }
 
 }
 void main()
 {
-    struct n_fractions nf;
+    struct instances nf;
     nf=input();
     compute(&nf);
-    output(&nf);
+    output(nf);
 }
