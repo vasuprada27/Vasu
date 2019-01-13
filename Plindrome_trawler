@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct palindrome
+{
+  int pos;
+  char pal[100];
+};
+struct string
+{
+    int length;
+    char string[100];
+    struct palindrome p[100];
+};
+struct n_strings
+{
+    int n;
+    struct string s[100];
+};
+
+struct n_strings input()
+{
+    struct n_strings ns;
+    printf("Enter number of strings:");
+    scanf("%d",&ns.n);
+    for(int i=0;i<ns.n;i++)
+    {
+        printf("Enter length of string %d :",i+1);
+        scanf("%d",&ns.s[i].length);
+        printf("Enter string %d :",i+1);
+        for(int j=0;j<ns.s[i].length;j++)
+        {
+            scanf("%c",&ns.s[i].string[j]);
+        }
+    }
+    return ns;
+}
+
+
+
+void main()
+{
+    struct n_strings ns;
+    ns=input();
+    
+}
+    
