@@ -8,7 +8,7 @@ struct pointways
 struct instances
 {
     int n;
-    struct points p[100];
+    struct pointways p[100];
 };
 
 struct instances input()
@@ -19,7 +19,7 @@ struct instances input()
     printf("Enter points:");
     for(int i=0;i<in.n;i++)
     {
-        scanf("%d",&in.p[i].score);
+        scanf("%d",&in.p[i].point);
     }
     return in;
 }
@@ -31,21 +31,21 @@ void count(struct instances *in,int  i)
     c[1]=1;
     c[2]=2;
     c[3]=4;
-    if(in->p[i].score==0)
+    if(in->p[i].point==0)
         in->p[i].ways=c[0];
-    else if(in->p[i].score==1)
+    else if(in->p[i].point==1)
         in->p[i].ways=c[1];
-    else if(in->p[i].score==2)
+    else if(in->p[i].point==2)
         in->p[i].ways=c[2];
-    else if(in->p[i].score==3)
+    else if(in->p[i].point==3)
         in->p[i].ways=c[3];
         
-    else if(in->p[i].score > 3)
+    else if(in->p[i].point > 3)
     {
-        for(int j=4;j<=in->p[i].score;j++)
+        for(int j=4;j<=in->p[i].point;j++)
         {
             c[j]=c[j-1]+c[j-2]+c[j-3];
-            if(in->p[i].score == j)
+            if(in->p[i].point == j)
             {
                 in->p[i].ways=c[j];
                 break;
@@ -67,7 +67,7 @@ void output(struct instances in)
 {
     for(int i=0;i<in.n;i++)
     {
-        printf("%d points: %d \n",in.p[i].score,in.p[i].ways);
+        printf("%d points: %d \n",in.p[i].point,in.p[i].ways);
     }
 }
 
