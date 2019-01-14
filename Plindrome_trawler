@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include<string.h>
+
 struct palindrome
 {
-  int pos;
-  char pal[100];
+    int pos;
+    char pal[100];
 };
 struct string
 {
@@ -35,12 +37,45 @@ struct n_strings input()
     return ns;
 }
 
+void palindrome_trawler(struct n_strings *ns)
+{
+    for(int i=0;i<ns->n;i++)
+    {
+        int a=3,t=0;
+        for(int j=0;j<ns->s.length ;j++)
+        {
+            while(a<ns->s.length)
+            {
+                char ch[a];
+                strcpy(ch,ns->s[i].string);
+                if(strcmp(strrev(ch),ch))
+                {
+                    ns->s[i].p[t].pal=ch;
+                    pos=a;
+                    t++
+                }
+                
+            }
+            
+        }
+    }
+}
 
+void output(struct n_strings ns)
+{
+    for(int i=0;i<ns->n;i++)
+    {
+        for(int j=0;j<ns->s.length ;j++)
+        {
+           
+        }
+    }
+}
 
 void main()
 {
     struct n_strings ns;
     ns=input();
+    palindrome_trawler(&ns);
     
 }
-    
