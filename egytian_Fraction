@@ -1,20 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
-struct egyptian_fraction
+struct sum_fraction
 {
      int num;
      int den;
 };
-struct unit_fraction
+struct egyptian_fraction
 {
     int terms;
     int d[100];
-    struct egyptian_fraction f;
+    struct sum_fraction f;
 };
 struct instances
 {
     int n;
-    struct unit_fraction eq[100];
+    struct egyptian_fraction eq[100];
 };
 
 struct instances input()
@@ -35,50 +35,47 @@ struct instances input()
     return nf;
 }
 
+void find_sum_of_fraction(struct instances *nf, int i)
+{
+    int p=1,s=0;
+    for(int j=0;j<nf->eq[i].terms;j++)
+    {
+        p=p * nf->eq[i].d[j] ;
+
+    }
+    nf->eq[i].f.den=p;
+    
+    for(int k=0;k<nf->eq[i].terms;k++)
+    {
+        s=s + (p / nf->eq[i].d[k] );
+    }
+    nf->eq[i].f.num=s;
+        
+    int a;
+    if(nf->eq[i].f.den > nf->eq[i].f.num)
+        a= nf->eq[i].f.num ;
+    else
+        a= nf->eq[i].f.den ;
+
+    while((nf->eq[i].f.den >= a) && (nf->eq[i].f.num >= a)  && (a>0) )
+    {
+        if((nf->eq[i].f.den %a ==0) && (nf->eq[i].f.num %a ==0))
+        {
+            nf->eq[i].f.den =(nf->eq[i].f.den /a);
+            nf->eq[i].f.num =(nf->eq[i].f.num /a);
+        }
+        a--;
+    }
+}
+
 void convert_egyptian_fraction(struct instances *nf)
 {
-
-    
     for(int i=0;i<nf->n;i++)
     {
-        int p=1,s=0;
-        for(int j=0;j<nf->eq[i].terms;j++)
-        {
-            p=p * nf->eq[i].d[j] ;
-
-        }
-        nf->eq[i].f.den=p;
-        
-        for(int k=0;k<nf->eq[i].terms;k++)
-        {
-            s=s + (p / nf->eq[i].d[k] );
-        }
-        nf->eq[i].f.num=s;
-        
+       find_sum_of_fraction(nf, i);
     }
 }
 
-void reduced_form(struct instances *nf)
-{
-    for(int i=0;i<nf->n;i++)
-    {
-        int a;
-        if(nf->eq[i].f.den > nf->eq[i].f.num)
-            a= nf->eq[i].f.num ;
-        else
-            a= nf->eq[i].f.den ;
-
-        while((nf->eq[i].f.den >= a) && (nf->eq[i].f.num >= a)  && (a>0) )
-        {
-            if((nf->eq[i].f.den %a ==0) && (nf->eq[i].f.num %a ==0))
-            {
-                nf->eq[i].f.den =(nf->eq[i].f.den /a);
-                nf->eq[i].f.num =(nf->eq[i].f.num /a);
-            }
-            a--;
-        }
-    }
-}
 
 void output(struct instances nf)
 {
@@ -101,6 +98,5 @@ void main()
     struct instances nf;
     nf=input();
     convert_egyptian_fraction(&nf);
-    reduced_form(&nf);
     output(nf);
 }
