@@ -35,7 +35,7 @@ struct instances input()
     return nf;
 }
 
-void egyptian_frac(struct instances *nf)
+void convert_egyptian_fraction(struct instances *nf)
 {
 
     
@@ -54,7 +54,6 @@ void egyptian_frac(struct instances *nf)
             s=s + (p / nf->eq[i].d[k] );
         }
         nf->eq[i].f.num=s;
-        printf("N=%d \n D=%d \n",nf->eq[i].f.num,nf->eq[i].f.den);
         
     }
 }
@@ -101,7 +100,7 @@ void main()
 {
     struct instances nf;
     nf=input();
-    egyptian_frac(&nf);
+    convert_egyptian_fraction(&nf);
     reduced_form(&nf);
     output(nf);
 }
