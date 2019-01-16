@@ -59,7 +59,7 @@ void palindrome(struct n_strings *ns,int i)
     for(int a=0;a<=(ns->s[i].length - 3);a++)
     {
         int end_index=a+3;
-        while(end_index < ns->s[i].length)
+        while(end_index <= ns->s[i].length)
         {
             char ch[end_index -a],ch1[end_index -a];
             strncpy(ch, (ns->s[i].string+a ),(end_index - a));
@@ -92,7 +92,7 @@ void output(struct n_strings ns)
         printf("%s\n",ns.s[i].string);
         for(int j=0;j< ns.s[i].total_palindromes ;j++)
         {
-           printf("%d %s\n",ns.s[i].p[j].pos,ns.s[i].p[j].pal);
+           printf("%d %s\n",ns.s[i].p[j].pos+1,ns.s[i].p[j].pal);
         }
     }
 }
