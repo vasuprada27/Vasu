@@ -12,6 +12,7 @@ struct string
     int length;
     char string[100];
     struct position_palindrome p[100];
+    int total_palindromes;               //number of palindromes present in the string
 };
 struct n_strings
 {
@@ -35,7 +36,7 @@ struct n_strings input()
     return ns;
 }
 
-char reverse(char str[], int len)
+char* reverse(char str[], int len)
 {
     char temp;
     int i = 0;
@@ -55,22 +56,25 @@ char reverse(char str[], int len)
 void palindrome(struct n_strings *ns,int i)
 {
     int t=0;
-    for(int a=0;a<(ns->s[i].length - 3);a++)
+    for(int a=0;a<=(ns->s[i].length - 3);a++)
     {
         int end_index=a+3;
         while(end_index < ns->s[i].length)
         {
-            char ch[end_index -a];
+            char ch[end_index -a],ch1[end_index -a];
             strncpy(ch, (ns->s[i].string+a ),(end_index - a));
-            if(strcmp( reverse( ch,(end_index - a)) ,ch) == 0)
+            strcpy(ch1,ch);
+            char *ch2= reverse( ch,(end_index - a)) ;
+            if(strcmp(ch2 ,ch1) == 0)
             {
                 ns->s[i].p[t].pos=a;
-                strcpy(ns->s[i].p[t].pal, ch);
+                strcpy(ns->s[i].p[t].pal, ch2);
                 t++;
             }
             end_index++;
         }
     }
+    ns->s[i].total_palindromes=t;
 }
 
 void palindrome_trawler(struct n_strings *ns)
@@ -86,7 +90,7 @@ void output(struct n_strings ns)
     for(int i=0;i<ns.n;i++)
     {
         printf("%s\n",ns.s[i].string);
-        for(int j=0;j<ns.s[i].length ;j++)
+        for(int j=0;j< ns.s[i].total_palindromes ;j++)
         {
            printf("%d %s\n",ns.s[i].p[j].pos,ns.s[i].p[j].pal);
         }
